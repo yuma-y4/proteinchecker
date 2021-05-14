@@ -51,17 +51,12 @@
           </v-card>
         </v-col>
       </v-row>
-       
-    
-        
-       <div class="text-center" style="margin-top: 60px">
-      <v-btn  elevation="6"  to="/signup"  v-show="!$store.state.login_user">
-     
-        新規登録をしてレビューを見る
-       
-      </v-btn>
+
+      <div class="text-center" style="margin-top: 60px">
+        <v-btn elevation="6" to="/signup" v-show="!$store.state.login_user">
+          新規登録をしてレビューを見る
+        </v-btn>
       </div>
-        
     </v-container>
   </v-app>
 </template>
