@@ -1,72 +1,49 @@
 <template>
   <v-container>
-    <v-col align="center">
-      <v-card width="500">
-        <v-img height="250px"></v-img>
+    <v-card width="500" class="mx-auto">
+      <v-card-actions>
+        <v-list-item-avatar>
+          <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="font-weight-light">{{
+            user.name
+          }}</v-list-item-title>
+        </v-list-item-content>
+      </v-card-actions>
 
-        <v-card-title>
-          {{ title }}
-        </v-card-title>
-
+      <v-img height="250px"></v-img>
+      <v-col align="center">
         <v-card-subtitle>
-          {{ name }}
+          {{ indexs.name }}
         </v-card-subtitle>
-        <!-- クリック押しで -->
-        <v-card-actions>
-          <v-btn text color="teal accent-4" @click="reveal = true">
-            read More
-          </v-btn>
-        </v-card-actions>
+      </v-col>
+      <v-card-title class="font-weight-medium">
+        {{ indexs.title }}
+      </v-card-title>
 
-        <v-expand-transition>
-          <v-card v-if="reveal" class="v-card--reveal" style="height: 100%">
-            <v-card-text class="pb-0">
-              <p>{{ comment }}</p>
-            </v-card-text>
-            <v-card-actions class="pt-0">
-              <v-btn text color="teal accent-4" @click="reveal = false">
-                Close
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-expand-transition>
-      </v-card>
-    </v-col>
+      <v-card-text>
+        <p>{{ indexs.comment }}</p>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
 <script>
+import { db } from "../main";
 export default {
-  data: () => ({
-    reveal: false,
-  }),
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    comment: {
-      type: String,
-      required: true,
-    },
-    cardIndex: {
-      type: String,
-      required: true,
-    },
+  props: ["id", "uid"],
+  data() {
+    return {
+      indexs: {},
+      user: {},
+    };
   },
-  methods: {},
+  firestore() {
+    return {
+      indexs: db.collection("vcards").doc(this.$props.id),
+      user: db.collection("users").doc(this.$props.uid),
+    };
+  },
 };
 </script>
-
-<style>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 1 !important;
-  position: absolute;
-  width: 100%;
-}
-</style>
