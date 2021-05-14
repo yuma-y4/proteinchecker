@@ -1,7 +1,10 @@
 <template>
   <v-app>
     <v-app-bar color="light-blue darken-2" dark app>
-      <v-app-bar-nav-icon @click.stop="SideMenu"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        v-show="$store.state.login_user"
+        @click.stop="SideMenu"
+      ></v-app-bar-nav-icon>
       <v-toolbar-title>Protein checker</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items v-if="!$store.state.login_user">
@@ -23,6 +26,7 @@
 <script>
 import Sidemenu from "./components/Sidemenu";
 import { mapActions } from "vuex";
+import firebase from "firebase";
 export default {
   name: "App",
   components: {
@@ -31,9 +35,19 @@ export default {
   data: () => ({
     //
   }),
-
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setLoginUser(user);
+        this.$router.push("");
+      } else {
+        this.deleteLoginUser(user);
+        this.$router.push("/");
+      }
+    });
+  },
   methods: {
-    ...mapActions(["SideMenu"]),
+    ...mapActions(["SideMenu","setLoginUser", "logout", "deleteLoginUser"]),
   },
 };
 </script>
