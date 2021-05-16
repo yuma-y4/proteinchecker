@@ -90,18 +90,29 @@ export default {
     this.$refs.observer.validate();
   },
   methods: {
-    signup: function() {
-  
-      firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-      .then(() => {
-          // アカウントの作成成功
-          const user = firebase.auth().currentUser;
-          user.sendEmailVerification().then(() => {
-            // 確認のE-Mail送信
-            // 強制的にサインアウトにするため利用はできない
-            firebase.auth().signOut();
+    signup: function () {
+      firebase.auth().onAuthStateChanged(async (user) => {
+        // emailログインする
+        firebase.auth() .createUserWithEmailAndPassword(this.email, this.password)
+          .then(() => {
+            // アカウントの作成成功
+            const user = firebase.auth().currentUser;
+            user.sendEmailVerification().then(() => {
+              // 確認のE-Mail送信
+              // 強制的にサインアウトにするためはログインを必須とする
+              firebase.auth().signOut();
+            });
           });
+
+        // 新規登録済みのユーザー情報チェック
+        var userCollection = await firebase.firestore().collection("users").doc(user.uid).get();
+
+        // Firestore にドキュメントを作る
+          await userCollection.ref.set({
+          email: user.email,
+          display_name: "名無しさん",
         });
+      });
     },
   },
 };
