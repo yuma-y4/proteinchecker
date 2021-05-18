@@ -28,7 +28,7 @@ export default {
     return {
       items: [
         { title: "User", icon: "mdi-view-dashboard", link: { name: "user" } },
-        { title: "My favorite", icon: "mdi-image" },
+        { title: "My favorite", icon: "mdi-image"},
         { title: "Index", icon: "mdi-image", link: { name: "indexs" } },
       ],
       right: null,

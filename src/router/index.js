@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import indexs from '../views/indexs.vue'
+import user from '../views/user.vue'
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,10 @@ const routes = [
     path: '/indexs',
     name: 'indexs',
     component: indexs
+  },{
+    path: '/User',
+    name: 'user',
+    component: user
   },
 ];
 
