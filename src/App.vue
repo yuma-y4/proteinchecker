@@ -7,6 +7,11 @@
       ></v-app-bar-nav-icon>
       <v-toolbar-title>Protein checker</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn dark icon class="mx-3" :to="'/user/' + $store.state.login_user.uid" v-if="$store.state.login_user">
+        <v-avatar>
+          <img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+        </v-avatar>
+      </v-btn>
       <v-toolbar-items v-if="!$store.state.login_user">
         <v-btn text to="/login">login</v-btn>
       </v-toolbar-items>
@@ -33,7 +38,7 @@ export default {
     Sidemenu,
   },
   data: () => ({
-    //
+    
   }),
   created() {
     firebase.auth().onAuthStateChanged((user) => {
