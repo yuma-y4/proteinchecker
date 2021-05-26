@@ -8,12 +8,18 @@
         :uid="indexs.uid"
       />
     </div>
+    <v-main>
+      <v-container>
+        <router-view />
+        <post />
+      </v-container>
+    </v-main>
   </div>
 </template>
 <script>
 import { db } from "../main";
-
-import List from "@/components/List.vue";
+import post from "../components/post";
+import List from "../components/List.vue";
 export default {
   name: "indexs",
   data() {
@@ -26,10 +32,9 @@ export default {
       vcards: db.collection("vcards"),
     };
   },
-
-  // ここから追加
   components: {
     List,
+    post,
   },
 };
 </script>

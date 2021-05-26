@@ -35,7 +35,7 @@ const routes = [
     name: 'indexs',
     component: indexs
   },{
-    path: '/User',
+    path: '/user/:uid',
     name: 'user',
     component: user
   },
