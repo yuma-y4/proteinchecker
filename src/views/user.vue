@@ -2,13 +2,13 @@
   <div class="indexs">
     <div class="List">
       <list
-        v-for="indexs in vcards"
+        v-for="indexs in  Myvcards"
         :key="indexs.id"
         :id="indexs.id"
         :uid="indexs.uid"
       />
     </div>
-    <h1>{{vcards.uid}}</h1>
+  
   </div>
 </template>
 <script>
