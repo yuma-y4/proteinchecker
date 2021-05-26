@@ -2,48 +2,39 @@
   <div class="indexs">
     <div class="List">
       <list
-        v-for="indexs in vcards"
+        v-for="indexs in  Myvcards"
         :key="indexs.id"
         :id="indexs.id"
         :uid="indexs.uid"
       />
     </div>
-    <v-main>
-      <v-container>
-        <router-view />
-        <post />
-      </v-container>
-    </v-main>
+  
   </div>
 </template>
 <script>
 import { db } from "../main";
-import post from "../components/post";
 import List from "../components/List.vue";
 export default {
-  name: "indexs",
+  name: "user",
   data() {
     return {
-      vcards: [],
+     user: {},
+     Myvcards: [],
+     
     };
   },
   firestore() {
     return {
-      vcards: db.collection("vcards"),
+   
+       user : db.collection('users').doc(this.$route.params.uid),
+        Myvcards: db.collection("vcards").where("uid", "==", this.$route.params.uid)
     };
   },
+
+  // ここから追加
   components: {
     List,
-    post,
   },
 };
 </script>
 
-<style>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 1 !important;
-  position: absolute;
-  width: 100%;
-}
-</style>

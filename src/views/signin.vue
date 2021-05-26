@@ -4,7 +4,7 @@
       <v-row align-items="center" justify="center">
         <v-card width="500" max-height="400">
           <v-card-title>
-            <span class="headline">Login-form</span>
+            <span class="headline">ログイン</span>
           </v-card-title>
           <v-col align="center">
             <validation-observer ref="observer" v-slot="{ invalid }">
@@ -95,22 +95,11 @@ export default {
   },
   methods: {
     login: function () {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password);
-    },
-    createImage(file) {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        this.imageUrl = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
-    onFileChange(file) {
-      if (!file) {
-        return;
-      }
-      this.createImage(file);
-    },
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      .then(() => {
+        this.$router.push('/indexs')
+        })
+    }
   },
 };
 </script>
